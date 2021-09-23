@@ -7,13 +7,15 @@
     "require": {
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.3",
         "inertiajs/inertia-laravel": "^0.3.5",
+        "jason-guru/laravel-make-repository": "^0.0.3",
         "laravel/framework": "^8.54",
         "laravel/passport": "^10.1",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
-        "tightenco/ziggy": "^1.0"
+        "tightenco/ziggy": "^1.0",
+        "wildbit/swiftmailer-postmark": "^3.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
