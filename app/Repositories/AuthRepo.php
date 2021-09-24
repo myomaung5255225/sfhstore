@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use JasonGuru\LaravelMakeRepository\Repository\BaseRepository;
 use Ramsey\Uuid\Rfc4122\UuidV4;
@@ -171,6 +172,29 @@ class AuthRepo extends BaseRepository
                 $returnObj['message'] = 'User deleted fail!';
                 $returnObj['statusCode'] = 400;
             }
+        } catch (\Throwable $th) {
+            $returnObj['systemError'] = $th->getMessage();
+            $returnObj['statusCode'] = 500;
+        }
+        return $returnObj;
+    }
+
+    public function passwordReset($request){
+        $returnObj = array();
+        $returnObj['statusCode'] = 500;
+        try {
+             $validator = Validator::make($request->all(),[
+                'email'=>'required|email'
+             ]);
+             if($validator->fails()){
+                $returnObj['statusCode']=422;
+                $returnObj['errors']=$validator->errors();
+             }
+             else{
+                $status = Password::sendResetLink($request->only('email'));
+                $returnObj['status']=$status;
+                $returnObj['statusCode']=200;
+             }
         } catch (\Throwable $th) {
             $returnObj['systemError'] = $th->getMessage();
             $returnObj['statusCode'] = 500;

@@ -47,4 +47,9 @@ class AuthController extends Controller
         $returnObj = $this->authRepo->deleteUser($id);
         return response()->json($returnObj);
     }
+
+    public function passwordReset(Request $request){
+        $returnObj = $this->authRepo->passwordReset($request);
+        return response()->json($returnObj);
+    }
 }
