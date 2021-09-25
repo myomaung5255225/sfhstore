@@ -30,13 +30,13 @@ class ImageRepo extends BaseRepository
 
             $name = UuidV4::fromDateTime(now()) . '.jpg';
 
-            $path = 'public/places_images/' . $name;
+            $path = 'public/images/' . $name;
 
             $img = Image::make($image)->resize(320, 320);
 
             Storage::disk('local')->put($path, $img->encode());
 
-            $url = asset('storage/places_images/' . $name);
+            $url = asset('storage/images/' . $name);
 
             return $url;
         } else {
@@ -51,13 +51,13 @@ class ImageRepo extends BaseRepository
 
             $name = UuidV4::fromDateTime(now()) . '.jpg';
 
-            $path = 'public/places_images/' . $name;
+            $path = 'public/images/' . $name;
 
             $img = Image::make($image)->resize(320, 320);
 
             Storage::disk('local')->put($path, $img->encode());
 
-            $url = asset('storage/places_images/' . $name);
+            $url = asset('storage/images/' . $name);
 
             return $url;
         } else {
@@ -67,7 +67,7 @@ class ImageRepo extends BaseRepository
     public static  function deleteImage($image_path)
     {
 
-        $realPath = str_replace($_SERVER['HTTP_ORIGIN'], "", $image_path);
+        $realPath = str_replace($_SERVER['HTTP_HOST'], "", $image_path);
 
         if (File::exists(public_path($realPath))) {
             File::delete(public_path($realPath));

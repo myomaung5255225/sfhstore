@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +30,15 @@ Route::prefix('category')->group(function () {
         Route::post('/add', [CategoryController::class, 'addCategory']);
         Route::put('/update/{id}', [CategoryController::class, 'updateCategory']);
         Route::delete('/delete/{id}', [CategoryController::class, 'deleteCategory']);
+    });
+});
+
+Route::prefix('product')->group(function(){
+    Route::get('/',[ProductController::class,'products']);
+    Route::get('/{id}',[ProductController::class,'product']);
+    Route::middleware(['auth:api','is_admin'])->group(function(){
+        Route::post('/add',[ProductController::class,'addProduct']);
+        Route::put('/update/{id}',[ProductController::class,'updateProduct']);
+        Route::delete('/delete/{id}',[ProductController::class,'deleteProduct']);
     });
 });
