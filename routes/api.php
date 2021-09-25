@@ -26,8 +26,8 @@ Route::prefix('category')->group(function () {
     Route::get('/', [CategoryController::class, 'categories']);
     Route::get('/{id}', [CategoryController::class, 'category']);
     Route::middleware(['auth:api', 'is_admin'])->group(function () {
-        Route::post('/', [CategoryController::class, 'addCategory']);
-        Route::put('/{id}', [CategoryController::class, 'updateCategory']);
-        Route::delete('/{id}', [CategoryController::class, 'deleteCategory']);
+        Route::post('/add', [CategoryController::class, 'addCategory']);
+        Route::put('/update/{id}', [CategoryController::class, 'updateCategory']);
+        Route::delete('/delete/{id}', [CategoryController::class, 'deleteCategory']);
     });
 });
