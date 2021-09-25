@@ -6,15 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Repositories\AuthRepo;
 use Illuminate\Http\Request;
 
+
 class AuthController extends Controller
 {
     public function __construct(AuthRepo $authRepo)
     {
+
         $this->authRepo = $authRepo;
     }
 
     public function users(Request $request)
     {
+
         $returnObj = $this->authRepo->users($request);
         return response()->json($returnObj);
     }
