@@ -33,12 +33,12 @@ Route::prefix('category')->group(function () {
     });
 });
 
-Route::prefix('product')->group(function(){
-    Route::get('/',[ProductController::class,'products']);
-    Route::get('/{id}',[ProductController::class,'product']);
-    Route::middleware(['auth:api','is_admin'])->group(function(){
-        Route::post('/add',[ProductController::class,'addProduct']);
-        Route::put('/update/{id}',[ProductController::class,'updateProduct']);
-        Route::delete('/delete/{id}',[ProductController::class,'deleteProduct']);
+Route::prefix('product')->group(function () {
+    Route::get('/', [ProductController::class, 'products']);
+    Route::get('/{id}', [ProductController::class, 'product']);
+    Route::middleware(['auth:api', 'is_admin'])->group(function () {
+        Route::post('/add', [ProductController::class, 'addProduct']);
+        Route::put('/update/{id}', [ProductController::class, 'updateProduct']);
+        Route::delete('/delete/{id}', [ProductController::class, 'deleteProduct']);
     });
 });
