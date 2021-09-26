@@ -150,14 +150,13 @@ class ProductRepo extends BaseRepository
         $returnObj['statusCode'] = 500;
         try {
             $product = Product::findOrFail($id);
-            if($product){
+            if ($product) {
                 $product->delete();
                 ImageRepo::deleteImage($product->img);
                 $returnObj['product'] = $product;
                 $returnObj['message'] = 'Product deleted successfully';
                 $returnObj['statusCode'] = 200;
-            }
-            else{
+            } else {
                 $returnObj['message'] = 'Product does not exist';
                 $returnObj['statusCode'] = 404;
             }

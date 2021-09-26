@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,12 +34,25 @@ Route::prefix('category')->group(function () {
     });
 });
 
-Route::prefix('product')->group(function(){
-    Route::get('/',[ProductController::class,'products']);
-    Route::get('/{id}',[ProductController::class,'product']);
-    Route::middleware(['auth:api','is_admin'])->group(function(){
-        Route::post('/add',[ProductController::class,'addProduct']);
-        Route::put('/update/{id}',[ProductController::class,'updateProduct']);
-        Route::delete('/delete/{id}',[ProductController::class,'deleteProduct']);
+Route::prefix('product')->group(function () {
+    Route::get('/', [ProductController::class, 'products']);
+    Route::get('/{id}', [ProductController::class, 'product']);
+    Route::middleware(['auth:api', 'is_admin'])->group(function () {
+        Route::post('/add', [ProductController::class, 'addProduct']);
+        Route::put('/update/{id}', [ProductController::class, 'updateProduct']);
+        Route::delete('/delete/{id}', [ProductController::class, 'deleteProduct']);
+    });
+});
+
+Route::prefix('order')->group(function () {
+    Route::middleware(['auth:api', 'is_admin'])->group(function () {
+        Route::get('/', [OrderController::class, 'orders']);
+    });
+    Route::middleware('auth:api')->group(function () {
+        Route::get('/by_user', [OrderController::class, 'ordersByUser']);
+        Route::post('/add', [OrderController::class, 'addOrder']);
+        Route::put('/update/{id}', [OrderController::class, 'updateOrder']);
+        Route::delete('/delete/{id}', [OrderController::class, 'deleteOrder']);
+
     });
 });
