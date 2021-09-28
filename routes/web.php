@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -19,17 +20,8 @@ use Inertia\Inertia;
 if (App::environment('production')) {
     URL::forceScheme('https');
 }
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::get('/',[PageController::class,'home'])->name('welcome');
+Route::get('/about',[PageController::class,'about'])->name('about');
+Route::get('/contact',[PageController::class,'contact'])->name('contact');
+Route::get('/privacy',[PageController::class,'privacy'])->name('privacy');
 require __DIR__.'/auth.php';
